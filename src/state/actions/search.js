@@ -117,6 +117,23 @@ export function fetchSearch(windowId, companionWindowId, searchId, query) {
 }
 
 /**
+ * 
+ * @param {String} windowId 
+ * @param {String} companionWindowId 
+ * @param {String} option 
+ */
+export function setSearchOption(windowId, companionWindowId, option) {
+  return ((dispatch) => {
+    dispatch({
+      companionWindowId,
+      option,
+      type: ActionTypes.SET_SEARCH_OPTION,
+      windowId,
+    });
+  });
+}
+
+/**
  * selectedContentSearchAnnotation - action creator
  *
  * @param  {String} windowId

@@ -73,7 +73,7 @@ export class SearchPanelControls extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { search: props.query, selectOpen: props.selectOpen, suggestions: [] };
+    this.state = { search: props.query, selectOpen: props.selectOpen, suggestions: [], option: 'all_words' };
     this.handleChange = this.handleChange.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
@@ -87,7 +87,13 @@ export class SearchPanelControls extends Component {
    * to blank when the query has been cleared
    */
   componentDidUpdate(prevProps) {
-    const { query } = this.props;
+    const { query, searchOption } = this.props;
+    if (prevProps.searchOption && searchOption !== prevProps.searchOption) {
+      this.setState({
+        option: searchOption
+      })
+    }
+
     if (query !== prevProps.query) {
       // We are setting local state directly here ONLY when the query prop (from redux)
       // changed
@@ -143,11 +149,12 @@ export class SearchPanelControls extends Component {
     const {
       companionWindowId, fetchSearch, searchService, windowId,
     } = this.props;
-    const { search } = this.state;
+
+    const { search, option } = this.state;
     event && event.preventDefault();
     if (!search) return;
     this.setState({ selectOpen: false });
-    fetchSearch(windowId, companionWindowId, `${searchService.id}?q=${search}`, search);
+    fetchSearch(windowId, companionWindowId, `${searchService.id}?q=${search}&searchOption=${option}`, search);
   }
 
   /** */

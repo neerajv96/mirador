@@ -7,6 +7,7 @@ import BackIcon from '@material-ui/icons/ArrowBackSharp';
 import { LiveMessenger } from 'react-aria-live';
 import SearchHit from '../containers/SearchHit';
 import { ScrollTo } from './ScrollTo';
+import uuidV4 from "uuid/v4";
 
 /** */
 export class SearchResults extends Component {
@@ -51,7 +52,7 @@ export class SearchResults extends Component {
           annotationId={anno.id}
           companionWindowId={companionWindowId}
           containerRef={containerRef}
-          key={anno.id}
+          key={`${anno.id}${uuidV4()}`}
           focused={focused}
           index={index}
           total={searchAnnotations.length}
@@ -66,7 +67,7 @@ export class SearchResults extends Component {
         announcer={announcer}
         containerRef={containerRef}
         companionWindowId={companionWindowId}
-        key={hit.annotations[0]}
+        key={`${hit.annotations[0]}${uuidV4()}`}
         focused={focused}
         hit={hit}
         index={index}

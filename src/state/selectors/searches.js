@@ -46,6 +46,21 @@ export const getSearchQuery = createSelector(
   results => results && results.query,
 );
 
+export const getSearchOption = createSelector(
+  [
+    (state, { companionWindowId, windowId }) => (
+      {
+        companionWindowId,
+        windowId,
+      }
+    ),
+    state => state.searches,
+  ],
+  ({ companionWindowId, windowId }, searches) => {
+    return searches[windowId] && searches[windowId][companionWindowId] && searches[windowId][companionWindowId].searchOption;
+  },
+);
+
 export const getSearchIsFetching = createSelector(
   [
     getSearchResponsesForCompanionWindow,
@@ -62,9 +77,9 @@ export const getNextSearchId = createSelector(
 
     const resultWithAnUnresolvedNext = Object.values(results.data).find(result => (
       !result.isFetching
-        && result.json
-        && result.json.next
-        && !results.data[result.json.next]
+      && result.json
+      && result.json.next
+      && !results.data[result.json.next]
     ));
 
     return resultWithAnUnresolvedNext
@@ -96,7 +111,7 @@ export const getSortedSearchHitsForCompanionWindow = createSelector(
     if (!canvases || canvases.length === 0) return [];
     if (!searchHits || searchHits.length === 0) return [];
     const canvasIds = canvases.map(canvas => canvas.id);
-
+    
     return [].concat(searchHits).sort((a, b) => {
       const hitA = annotationForSearchHit(a.annotations[0]);
       const hitB = annotationForSearchHit(b.annotations[0]);
@@ -132,11 +147,11 @@ export const getSearchAnnotationsForCompanionWindow = createSelector(
 /** */
 export function sortSearchAnnotationsByCanvasOrder(searchAnnotations, canvases) {
   if (!searchAnnotations
-      || !searchAnnotations.resources
-      || searchAnnotations.length === 0) return [];
+    || !searchAnnotations.resources
+    || searchAnnotations.length === 0) return [];
   if (!canvases || canvases.length === 0) return [];
   const canvasIds = canvases.map(canvas => canvas.id);
-
+  
   return [].concat(searchAnnotations.resources).sort(
     (annoA, annoB) => canvasIds.indexOf(annoA.targetId) - canvasIds.indexOf(annoB.targetId),
   );

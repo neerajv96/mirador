@@ -133,6 +133,20 @@ export const searchesReducer = (state = {}, action) => {
           ...removeIn(state[action.windowId], [action.id]),
         },
       };
+    case ActionTypes.SET_SEARCH_OPTION:
+      let updatedState = {
+        ...state
+      };
+
+      const { companionWindowId, windowId, option } = action;
+
+      if (updatedState[windowId]) {
+        updatedState[windowId][companionWindowId]['searchOption'] = option;
+
+      }
+      return {
+        ...updatedState
+      };
     default: return state;
   }
 };

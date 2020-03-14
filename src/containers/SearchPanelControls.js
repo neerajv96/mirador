@@ -10,6 +10,7 @@ import {
   getManifestSearchService,
   getSearchIsFetching,
   getSearchQuery,
+  getSearchOption,
 } from '../state/selectors';
 
 /**
@@ -18,6 +19,7 @@ import {
  * @private
  */
 const mapStateToProps = (state, { companionWindowId, windowId }) => ({
+  searchOption: getSearchOption(state, { companionWindowId, windowId }),
   autocompleteService: getManifestAutocompleteService(state, { windowId }),
   query: getSearchQuery(state, { companionWindowId, windowId }),
   searchIsFetching: getSearchIsFetching(state, { companionWindowId, windowId }),

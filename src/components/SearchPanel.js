@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CompanionWindow from '../containers/CompanionWindow';
 import SearchPanelControls from '../containers/SearchPanelControls';
 import SearchResults from '../containers/SearchResults';
+import uuidV4 from "uuid/v4";
 
 /** */
 export class SearchPanel extends Component {
@@ -29,6 +30,7 @@ export class SearchPanel extends Component {
       searchService,
       suggestedSearches,
       t,
+      searchOption
     } = this.props;
 
     return (
@@ -64,8 +66,9 @@ export class SearchPanel extends Component {
           />
           {
             fetchSearch && suggestedSearches && query === '' && suggestedSearches.map(search => (
-              <Typography component="p" key={search} variant="body1">
-                <Button className={classes.inlineButton} color="secondary" onClick={() => fetchSearch(`${searchService.id}?q=${search}`, search)}>
+              <Typography component="p" key={`${search}${uuidV4()}`} variant="body1">
+                <Button className={classes.inlineButton} color="secondary"
+                  onClick={() => fetchSearch(`${searchService.id}?q=${search}${searchOption && `&searchOption=${searchOption}`}`, search, searchOption)}>
                   {t('suggestSearch', { query: search })}
                 </Button>
               </Typography>

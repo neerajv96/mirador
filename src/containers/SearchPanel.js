@@ -5,22 +5,27 @@ import { withStyles } from '@material-ui/core/styles';
 import * as actions from '../state/actions';
 import { withPlugins } from '../extend/withPlugins';
 import { SearchPanel } from '../components/SearchPanel';
-import { getManifestSearchService, getSearchQuery, getWindow } from '../state/selectors';
+import { getManifestSearchService, getSearchQuery, getWindow, getSearchOption } from '../state/selectors';
 
 /** */
-const mapStateToProps = (state, { id, windowId }) => ({
-  query: getSearchQuery(state, { companionWindowId: id, windowId }),
-  searchService: getManifestSearchService(state, { windowId }),
-  suggestedSearches: getWindow(state, { windowId }).suggestedSearches,
-});
+const mapStateToProps = (state, { id, windowId }) => {
+  return {
+    searchOption: getSearchOption(state, { companionWindowId: id, windowId }),
+    query: getSearchQuery(state, { companionWindowId: id, windowId }),
+    searchService: getManifestSearchService(state, { windowId }),
+    suggestedSearches: getWindow(state, { windowId }).suggestedSearches,
+  }
+};
 
 /** */
-const mapDispatchToProps = (dispatch, props) => ({
-  fetchSearch: (searchId, query) => dispatch(
-    actions.fetchSearch(props.windowId, props.id, searchId, query),
-  ),
-  removeSearch: () => dispatch(actions.removeSearch(props.windowId, props.id)),
-});
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    fetchSearch: (searchId, query, option) => dispatch(
+      actions.fetchSearch(props.windowId, props.id, searchId, query, option),
+    ),
+    removeSearch: () => dispatch(actions.removeSearch(props.windowId, props.id)),
+  }
+};
 
 /**
 * Styles for withStyles HOC
