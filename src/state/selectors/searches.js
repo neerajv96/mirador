@@ -35,7 +35,8 @@ const getSearchResponsesForCompanionWindow = createSelector(
   ],
   (results) => {
     if (!results) return [];
-    return Object.values(results.data);
+    const latestSearchKey = Object.keys(results.data)[Object.keys(results.data).length - 1];
+    return [results.data[latestSearchKey]];
   },
 );
 
@@ -111,7 +112,7 @@ export const getSortedSearchHitsForCompanionWindow = createSelector(
     if (!canvases || canvases.length === 0) return [];
     if (!searchHits || searchHits.length === 0) return [];
     const canvasIds = canvases.map(canvas => canvas.id);
-    
+
     return [].concat(searchHits).sort((a, b) => {
       const hitA = annotationForSearchHit(a.annotations[0]);
       const hitB = annotationForSearchHit(b.annotations[0]);
@@ -151,7 +152,7 @@ export function sortSearchAnnotationsByCanvasOrder(searchAnnotations, canvases) 
     || searchAnnotations.length === 0) return [];
   if (!canvases || canvases.length === 0) return [];
   const canvasIds = canvases.map(canvas => canvas.id);
-  
+
   return [].concat(searchAnnotations.resources).sort(
     (annoA, annoB) => canvasIds.indexOf(annoA.targetId) - canvasIds.indexOf(annoB.targetId),
   );
