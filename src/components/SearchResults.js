@@ -52,7 +52,7 @@ export class SearchResults extends Component {
           annotationId={anno.id}
           companionWindowId={companionWindowId}
           containerRef={containerRef}
-          key={`${anno.id}${uuidV4()}`}
+          key={anno.id}
           focused={focused}
           index={index}
           total={searchAnnotations.length}
@@ -67,7 +67,7 @@ export class SearchResults extends Component {
         announcer={announcer}
         containerRef={containerRef}
         companionWindowId={companionWindowId}
-        key={`${hit.annotations[0]}${uuidV4()}`}
+        key={hit.annotations[0]}
         focused={focused}
         hit={hit}
         index={index}
@@ -104,7 +104,7 @@ export class SearchResults extends Component {
 
     return (
       <>
-        { focused && (
+        {focused && (
           <ScrollTo containerRef={containerRef} offsetTop={96} scrollTo>
             <Button onClick={this.toggleFocus} className={classes.navigation} size="small">
               <BackIcon />
@@ -119,10 +119,10 @@ export class SearchResults extends Component {
         )}
         <List disablePadding>
           <LiveMessenger>
-            {({ announcePolite }) => this.renderSearchHitsAndAnnotations(announcePolite) }
+            {({ announcePolite }) => this.renderSearchHitsAndAnnotations(announcePolite)}
           </LiveMessenger>
         </List>
-        { nextSearch && (
+        {nextSearch && (
           <Button color="secondary" onClick={() => fetchSearch(windowId, companionWindowId, nextSearch, query)}>
             {t('moreResults')}
           </Button>

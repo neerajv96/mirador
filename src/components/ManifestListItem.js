@@ -98,7 +98,7 @@ export class ManifestListItem extends React.Component {
                       unloader={(
                         <Skeleton
                           variant="rect"
-                          disableAnimate
+                          disableanimate="true"
                           className={classes.placeholder}
                           height={80}
                           width={120}
@@ -128,7 +128,7 @@ export class ManifestListItem extends React.Component {
                 unloader={(
                   <Skeleton
                     variant="rect"
-                    disableAnimate
+                    disableanimate="true"
                     className={classes.placeholder}
                     height={60}
                     width={60}
