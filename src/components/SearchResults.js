@@ -7,7 +7,6 @@ import BackIcon from '@material-ui/icons/ArrowBackSharp';
 import { LiveMessenger } from 'react-aria-live';
 import SearchHit from '../containers/SearchHit';
 import { ScrollTo } from './ScrollTo';
-import uuidV4 from "uuid/v4";
 
 /** */
 export class SearchResults extends Component {
